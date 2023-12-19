@@ -1,6 +1,6 @@
 import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { FormService } from 'src/app/services/form.service';
@@ -24,9 +24,9 @@ export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup = this.formBuilder.group({
     customer: this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: ['']
+      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^\S+@\S+\.\S+$/)]]
     }),
     shippingAddress: this.formBuilder.group({
       street: [''],
@@ -80,6 +80,10 @@ export class CheckoutComponent implements OnInit {
       }
     )
   }
+
+  get firstName() {return this.checkoutFormGroup.get('customer.firstName');}
+  get lastName() {return this.checkoutFormGroup.get('customer.lastName');}
+  get email() {return this.checkoutFormGroup.get('customer.email');}
 
   copyShippingAddressToBillingAddress(event: any) {
     if (event.target.checked) {
