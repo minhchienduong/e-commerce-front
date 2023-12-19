@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
 
+  totalPrice: number = 0;
+  totalQuantity: number = 0;
+
   checkoutFormGroup = this.formBuilder.group({
     customer: this.formBuilder.group({
       firstName: [''],
@@ -48,4 +51,31 @@ export class CheckoutComponent implements OnInit {
     console.log(this.checkoutFormGroup.get('customer')?.value.email);
   }
 
+  copyShippingAddressToBillingAddress(event: any) {
+    if (event.target.checked) {
+      const shippingAddressValue = this.checkoutFormGroup.controls.shippingAddress.value;
+
+      // Explicitly cast undefined values to null
+      const billingAddressValue: Address = {
+        street: shippingAddressValue.street || null,
+        city: shippingAddressValue.city || null,
+        state: shippingAddressValue.state || null,
+        country: shippingAddressValue.country || null,
+        zipCode: shippingAddressValue.zipCode || null,
+      };
+
+      this.checkoutFormGroup.controls.billingAddress.setValue(billingAddressValue);
+    } else {
+      this.checkoutFormGroup.controls.billingAddress.reset();
+    }
+  }
+
+}
+
+interface Address {
+  street: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  zipCode: string | null;
 }
