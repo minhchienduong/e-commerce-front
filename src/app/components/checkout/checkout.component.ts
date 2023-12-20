@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CartService } from 'src/app/services/cart.service';
 import { FormService } from 'src/app/services/form.service';
 import { CustomerVlidators } from 'src/app/validators/customer-vlidators';
 
@@ -26,7 +27,8 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup! : FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private formService: FormService) { }
+              private formService: FormService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     const startMonth: number = new Date().getMonth() + 1;
@@ -67,26 +69,30 @@ export class CheckoutComponent implements OnInit {
         console.log(`Retrieved credit card months: ` + JSON.stringify(data));
         this.creditCardMonths = data;
       }
-    )
+    );
 
     this.formService.getCreditYears().subscribe(
       data => {
         console.log(`Retrieved credit card years: ` + JSON.stringify(data));
         this.creditCardYears = data;
       }
-    )
+    );
 
     this.formService.getCountries().subscribe(
       data => {
         console.log(`Retrieved Countries: ` + JSON.stringify(data));
         this.countries = data;
       }
-    )
+    );
+
+    this.reviewCartetails();
+
   }
 
   get firstName() {return this.checkoutFormGroup.get('customer.firstName');}
   get lastName() {return this.checkoutFormGroup.get('customer.lastName');}
   get email() {return this.checkoutFormGroup.get('customer.email');}
+
   get shippingAddressCountry() {return this.checkoutFormGroup.get('shippingAddress.country');}
   get shippingAddressStreet() {return this.checkoutFormGroup.get('shippingAddress.street');}
   get shippingAddressCity() {return this.checkoutFormGroup.get('shippingAddress.city');}
@@ -162,6 +168,11 @@ export class CheckoutComponent implements OnInit {
         formGroup?.get('state')?.setValue(data[0]);
       }
     )
+  }
+
+  reviewCartetails() {
+    this.cartService.totalPrice.subscribe(data => this.totalPrice = data);
+    this.cartService.totalQuantity.subscribe(data => this.totalQuantity = data);
   }
 
   onSubmit() {
