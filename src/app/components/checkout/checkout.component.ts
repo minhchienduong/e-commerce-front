@@ -19,6 +19,8 @@ import { CustomerVlidators } from 'src/app/validators/customer-vlidators';
 })
 export class CheckoutComponent implements OnInit {
 
+  checkoutFormGroup! : FormGroup;
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
@@ -29,7 +31,7 @@ export class CheckoutComponent implements OnInit {
   shippingAddressStates: State[] = [];
   billingAddressStates: State[] = [];
 
-  checkoutFormGroup! : FormGroup;
+  storage:  Storage = sessionStorage;
 
   constructor(private formBuilder: FormBuilder,
               private formService: FormService,
@@ -38,14 +40,16 @@ export class CheckoutComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    const startMonth: number = new Date().getMonth() + 1;
-    console.log("startMonth: " + startMonth);
+
+    this.reviewCartetails();
+
+    const theEmail = JSON.parse(sessionStorage.getItem('userEmail')!);
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: ['', [Validators.required, Validators.minLength(2)]],
         lastName: ['', [Validators.required, Validators.minLength(2)]],
-        email: ['', [Validators.required, Validators.pattern(/^\S+@\S+\.\S+$/)]]
+        email: [theEmail, [Validators.required, Validators.pattern(/^\S+@\S+\.\S+$/)]]
       }),
       shippingAddress: this.formBuilder.group({
         street: ['', [Validators.required]],
@@ -71,6 +75,9 @@ export class CheckoutComponent implements OnInit {
       })
     });
 
+    const startMonth: number = new Date().getMonth() + 1;
+    console.log("startMonth: " + startMonth);
+
     this.formService.getCreditMonths(startMonth).subscribe(
       data => {
         console.log(`Retrieved credit card months: ` + JSON.stringify(data));
@@ -92,7 +99,6 @@ export class CheckoutComponent implements OnInit {
       }
     );
 
-    this.reviewCartetails();
 
   }
 
