@@ -261,106 +261,6 @@
           <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1'"></div>
         </div>
 
-        <!-- Credit card -->
-
-        <!--<div formGroupName="creditCard" class="form-area">
-          <h3>Credit Card</h3>
-
-          <div class="row">
-            <div class="col-md-2"><label>Card Type</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <select formControlName="cardType">
-                  <option>Visa</option>
-                  <option>Mastercard</option>
-                </select>
-
-                <div *ngIf="creditCardType?.invalid && (creditCardType?.dirty || creditCardType?.touched)" class="alert alert-danger mt-1">
-                  <div *ngIf="creditCardType?.hasError('required')">
-                    Card Type is required
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2"><label>Name on card</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <input formControlName="nameOnCard" type="text">
-
-                <div *ngIf="creditCardNameOnCard?.invalid && (creditCardNameOnCard?.dirty || creditCardNameOnCard?.touched)" class="alert alert-danger mt-1">
-                  <div *ngIf="creditCardNameOnCard?.hasError('required')">
-                    Name on card is required
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2"><label>Card Number</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <input formControlName="cardNumber" type="text">
-
-                <div *ngIf="creditCardNumber?.invalid && (creditCardNumber?.dirty || creditCardNumber?.touched)" class="alert alert-danger mt-1">
-                  <div *ngIf="creditCardNumber?.hasError('required')">
-                    Card Number is required
-                  </div>
-
-                  <div *ngIf="creditCardNumber?.hasError('pattern')">
-                    Card Number must be 16 digits long
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2"><label>Secutiry Code</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <input formControlName="securityCode" type="text">
-
-                <div *ngIf="creditCardSecurityCode?.invalid && (creditCardSecurityCode?.dirty || creditCardSecurityCode?.touched)" class="alert alert-danger mt-1">
-                  <div *ngIf="creditCardSecurityCode?.hasError('required')">
-                    Security Code is required
-                  </div>
-
-                  <div *ngIf="creditCardSecurityCode?.hasError('pattern')">
-                    Security Code must be 3 digits long
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2"><label>Expiration Month</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <select formControlName="expirationMonth">
-                  <option *ngFor="let month of creditCardMonths">{{ month }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2"><label>Expiration Year</label></div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
-                  <option *ngFor="let year of creditCardYears">{{ year }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-        </div>-->
-
         <!-- Order details -->
         <div class="form-area">
           <h3>Review Your Order</h3>
@@ -371,7 +271,7 @@
 
         <!-- submit button -->
         <div class="text-center">
-          <button class="btn btn-info" type="submit">Purchase</button>
+          <button class="btn btn-info" type="submit" [disabled]="isDisable">Purchase</button>
         </div>
 
       </form>
