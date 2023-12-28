@@ -42,5 +42,5 @@ Order History: Authenticated users have access to their order history, organized
 **8.Secure Communications:**
 The application enforces secure communication using HTTPS for data integrity and user privacy.
 
-**9.Credit Payment Processing with Stripe: ** Integration with Stripe enables secure credit payment processing for seamless transactions.
+**9.Credit Payment Processing with Stripe:** Integration with Stripe enables secure credit payment processing for seamless transactions.
 
