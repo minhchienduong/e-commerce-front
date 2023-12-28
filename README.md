@@ -1,6 +1,7 @@
 **Angular Ecommerce Application**
 
 **Overview**
+
 Welcome to the Angular Ecommerce Application repository! This project provides a feature-rich web application for online shopping, integrating various functionalities to enhance the user experience.
 
 **Backend**
